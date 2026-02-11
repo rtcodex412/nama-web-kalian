@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edukasi bangun bidang dua dimensi interaktif
+    </title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            scroll-behavior: smooth;
+        }
+        .shape-card:hover {
+            transform: translateY(-5px);
+            transition: all 0.3s ease;
+        }
+        .canvas-container {
+            background: #f8fafc;
+            border: 2px dashed #cbd5e1;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 200px;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800">
+
+    <!-- Navbar -->
+    <nav class="bg-indigo-600 text-white p-4 sticky top-0 z-50 shadow-md">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-xl font-bold">GeometriInteraktif</h1>
+            <div class="space-x-4">
+                <a href="#materi" class="hover:text-indigo-200">Materi</a>
+                <a href="#kalkulator" class="hover:text-indigo-200">Kalkulator</a>
+                <a href="#kuis" class="hover:text-indigo-200">Kuis</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="bg-indigo-700 text-white py-16 px-4 text-center">
+        <h2 class="text-4xl md:text-5xl font-extrabold mb-4">Mari Belajar Bangun Datar</h2>
+        <p class="text-lg opacity-90 max-w-2xl mx-auto">Mengenal berbagai macam bentuk dua dimensi, rumus-rumusnya, dan menguji pemahamanmu secara interaktif.</p>
+    </header>
+
+    <!-- Section Materi -->
+    <section id="materi" class="container mx-auto py-16 px-4">
+        <h3 class="text-3xl font-bold text-center mb-12">Mengenal Bangun Datar</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <!-- Persegi -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 shape-card">
+                <div class="canvas-container mb-4">
+                    <svg width="100" height="100">
+                        <rect width="80" height="80" x="10" y="10" fill="#4f46e5" />
+                    </svg>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Persegi</h4>
+                <p class="text-sm text-gray-600 mb-4">Memiliki 4 sisi yang sama panjang dan 4 sudut siku-siku.</p>
+                <div class="bg-indigo-50 p-3 rounded text-sm">
+                    <p><strong>Luas:</strong> $s \times s$</p>
+                    <p><strong>Keliling:</strong> $4 \times s$</p>
+                </div>
+            </div>
+
+            <!-- Segitiga -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 shape-card">
+                <div class="canvas-container mb-4">
+                    <svg width="100" height="100">
+                        <polygon points="50,10 90,90 10,90" fill="#ef4444" />
+                    </svg>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Segitiga</h4>
+                <p class="text-sm text-gray-600 mb-4">Bangun yang memiliki 3 titik sudut dan 3 sisi.</p>
+                <div class="bg-red-50 p-3 rounded text-sm">
+                    <p><strong>Luas:</strong> $\frac{1}{2} \times a \times t$</p>
+                    <p><strong>Keliling:</strong> $a + b + c$</p>
+                </div>
+            </div>
+
+            <!-- Lingkaran -->
+            <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100 shape-card">
+                <div class="canvas-container mb-4">
+                    <svg width="100" height="100">
+                        <circle cx="50" cy="50" r="40" fill="#10b981" />
+                    </svg>
+                </div>
+                <h4 class="text-xl font-bold mb-2">Lingkaran</h4>
+                <p class="text-sm text-gray-600 mb-4">Himpunan semua titik yang berjarak sama dari titik pusat.</p>
+                <div class="bg-green-50 p-3 rounded text-sm">
+                    <p><strong>Luas:</strong> $\pi \times r^2$</p>
+                    <p><strong>Keliling:</strong> $2 \times \pi \times r$</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Kalkulator Interaktif -->
+    <section id="kalkulator" class="bg-gray-100 py-16 px-4">
+        <div class="container mx-auto max-w-4xl">
+            <h3 class="text-3xl font-bold text-center mb-8">Kalkulator Pintar</h3>
+            <div class="bg-white p-8 rounded-2xl shadow-lg">
+                <div class="flex flex-wrap gap-4 mb-6">
+                    <button onclick="switchCalc('persegi')" id="btn-persegi" class="px-6 py-2 rounded-full bg-indigo-600 text-white">Persegi</button>
+                    <button onclick="switchCalc('lingkaran')" id="btn-lingkaran" class="px-6 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-indigo-100">Lingkaran</button>
+                </div>
+
+                <div id="calc-content">
+                    <div id="input-group" class="grid grid-cols-1 md:grid-cols-2 gap-6 items-end">
+                        <div>
+                            <label id="label-input" class="block text-sm font-medium mb-2">Sisi (s)</label>
+                            <input type="number" id="val1" class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-indigo-500 outline-none" placeholder="Masukkan angka...">
+                        </div>
+                        <button onclick="hitung()" class="w-full bg-indigo-600 text-white p-3 rounded-lg font-bold hover:bg-indigo-700 transition">Hitung Sekarang</button>
+                    </div>
+
+                    <div id="result" class="mt-8 hidden p-6 bg-indigo-50 border-l-4 border-indigo-600 rounded">
+                        <h5 class="font-bold text-indigo-800 text-lg mb-2">Hasil Perhitungan:</h5>
+                        <p id="res-luas" class="text-gray-700">Luas: -</p>
+                        <p id="res-keliling" class="text-gray-700">Keliling: -</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Kuis -->
+    <section id="kuis" class="container mx-auto py-16 px-4">
+        <div class="max-w-2xl mx-auto bg-white p-8 rounded-2xl border-2 border-dashed border-gray-200">
+            <h3 class="text-2xl font-bold mb-6 text-center">Uji Pemahamanmu!</h3>
+            <div id="quiz-container">
+                <p id="question" class="text-lg mb-6">Berapakah luas persegi jika panjang sisinya 5 cm?</p>
+                <div class="grid grid-cols-1 gap-3">
+                    <button onclick="checkAnswer(10)" class="p-3 border rounded-lg hover:bg-gray-50 text-left">A. 10 cm²</button>
+                    <button onclick="checkAnswer(20)" class="p-3 border rounded-lg hover:bg-gray-50 text-left">B. 20 cm²</button>
+                    <button onclick="checkAnswer(25)" class="p-3 border rounded-lg hover:bg-gray-50 text-left">C. 25 cm²</button>
+                </div>
+                <div id="quiz-feedback" class="mt-6 font-bold text-center hidden"></div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-gray-800 text-white py-8 text-center">
+        <p>&copy; 2024 Pelajaran Geometri Bidang. Dibuat untuk belajar.</p>
+    </footer>
+
+    <script>
+        let currentMode = 'persegi';
+
+        function switchCalc(mode) {
+            currentMode = mode;
+            const btnP = document.getElementById('btn-persegi');
+            const btnL = document.getElementById('btn-lingkaran');
+            const label = document.getElementById('label-input');
+            const res = document.getElementById('result');
+            
+            res.classList.add('hidden');
+            
+            if(mode === 'persegi') {
+                btnP.className = "px-6 py-2 rounded-full bg-indigo-600 text-white";
+                btnL.className = "px-6 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-indigo-100";
+                label.innerText = "Sisi (s)";
+            } else {
+                btnL.className = "px-6 py-2 rounded-full bg-indigo-600 text-white";
+                btnP.className = "px-6 py-2 rounded-full bg-gray-200 text-gray-700 hover:bg-indigo-100";
+                label.innerText = "Jari-jari (r)";
+            }
+        }
+
+        function hitung() {
+            const val = parseFloat(document.getElementById('val1').value);
+            const resDiv = document.getElementById('result');
+            const resLuas = document.getElementById('res-luas');
+            const resKel = document.getElementById('res-keliling');
+
+            if (isNaN(val) || val <= 0) {
+                alert("Mohon masukkan angka yang valid!");
+                return;
+            }
+
+            let luas, keliling;
+
+            if (currentMode === 'persegi') {
+                luas = val * val;
+                keliling = 4 * val;
+            } else {
+                luas = Math.PI * val * val;
+                keliling = 2 * Math.PI * val;
+            }
+
+            resLuas.innerHTML = `<strong>Luas:</strong> ${luas.toFixed(2)} satuan²`;
+            resKel.innerHTML = `<strong>Keliling:</strong> ${keliling.toFixed(2)} satuan`;
+            resDiv.classList.remove('hidden');
+        }
+
+        function checkAnswer(answer) {
+            const feedback = document.getElementById('quiz-feedback');
+            feedback.classList.remove('hidden');
+            if (answer === 25) {
+                feedback.innerText = "Benar! 5 x 5 = 25.";
+                feedback.className = "mt-6 font-bold text-center text-green-600";
+            } else {
+                feedback.innerText = "Kurang tepat. Coba ingat lagi rumus luas persegi (s x s).";
+                feedback.className = "mt-6 font-bold text-center text-red-600";
+            }
+        }
+    </script>
+</body>
+</html>
